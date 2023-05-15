@@ -13,5 +13,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    port = os.getenv('PORT')
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
