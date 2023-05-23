@@ -1,7 +1,7 @@
 import flask
 import sqlite3
 import os
-import funcoes
+from funcoes import veri_login, efetuando_cadastro 
 from flask import Flask, make_response, render_template, request, redirect
 
 
