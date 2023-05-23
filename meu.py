@@ -1,6 +1,7 @@
 import flask
 import sqlite3
 import os
+import funcoes
 from flask import Flask, make_response, render_template, request, redirect
 
 
