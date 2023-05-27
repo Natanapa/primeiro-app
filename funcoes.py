@@ -26,11 +26,17 @@ def caso_erro_já_cadastrado():
 
 def efetuando_cadastro(nome, email):
     # Insere o novo usuário no banco de dados
-    cursor.execute("INSERT INTO usuarios (nome, email) VALUES (?, ?)", (nome, email))
-    conn.commit()
+    try:
+        cursor.execute("INSERT INTO usuarios (nome, email) VALUES (?, ?)", (nome, email))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        return "Email já cadastrado!"
+    except Exception:
+        return "Não foi possível efetuar o cadastro"
+    
 
     # Retorna uma mensagem de sucesso para o usuário
-    return "Usuário cadastrado com sucesso!"
+    return True
 
 def veri_login(username, email):
     print(username,  email)
@@ -54,11 +60,17 @@ def veri_login(username, email):
         else:
             login_ok = False
             return login_ok         
-    except  Exception:
+ 
+    except Exception:
         conn.rollback()
         login_ok = False
         return login_ok
-print(veri_login("natan", "natanirmao11@gmail.com"))
+def ver_banco():
+    cursor.execute("SELECT * FROM usuarios")
+    conn.commit()
+    resultado = cursor.fetchall()
+
+    return print(resultado)
 
 
    

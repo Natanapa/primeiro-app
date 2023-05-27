@@ -22,14 +22,18 @@ def cadastro():
     if request.method =='POST':
         nome = request.form['nome']
         email = request.form['email']
-        verificaçao =  veri_login(nome, email)
+        verificaçao =  efetuando_cadastro(nome, email)
         
         
-        if verificaçao == True:
-            mensagem = "O e-mail {} já está cadastrado no banco de dados.".format(email)
-            response = make_response(render_template('login.html', mensagem=mensagem))
+        if verificaçao == "Email já cadastrado!":
+            response = make_response(render_template('login.html', mensagem=verificaçao))
             return response
-        return redirect('verificar_cadastro')
+        elif verificaçao == "Não foi possível efetuar o cadastro":
+            response = make_response(render_template('login.html', mensagem=verificaçao))
+            return response
+
+        return redirect('/')
+    response = make_response(render_template('login.html', menssagem="não passou"))
     return render_template('login.html')
 
 @app.route('/verificar_cadastro', methods=['POST',  'GET'])
